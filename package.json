@@ -1,0 +1,32 @@
+{
+  "name": "create-vitron",
+  "version": "0.0.1",
+  "description": "Scaffolding Your Electron + Vite Project",
+  "bin": {
+    "create-vitron": "index.js",
+    "cev": "index.js"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yeonv/create-vitron.git"
+  },
+  "keywords": [
+    "electron",
+    "vite",
+    "scaffold",
+    "starter"
+  ],
+  "author": "YeonV a.k.a. Blade<dev@yeonv.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yeonv/create-vitron/issues"
+  },
+  "homepage": "https://github.com/yeonv/create-vitron#readme",
+  "dependencies": {
+    "prompts": "^2.4.2"
+  }
+}
