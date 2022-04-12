@@ -1,7 +1,7 @@
 {
   "name": "create-vitron",
-  "version": "0.0.2",
-  "description": "Scaffolding Your Electron + Vite Project",
+  "version": "0.0.3",
+  "description": "Scaffolding Your Vitron (Electron + Vite) Project",
   "bin": {
     "create-vitron": "index.js",
     "cev": "index.js"
