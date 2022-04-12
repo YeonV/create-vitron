@@ -1,6 +1,6 @@
 {
   "name": "create-vitron",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Scaffolding Your Electron + Vite Project",
   "bin": {
     "create-vitron": "index.js",
@@ -27,6 +27,9 @@
   },
   "homepage": "https://github.com/yeonv/create-vitron#readme",
   "dependencies": {
+    "arg": "^5.0.1",
+    "chalk": "4.1.2",
+    "ora": "5.4.1",
     "prompts": "^2.4.2"
   }
 }
