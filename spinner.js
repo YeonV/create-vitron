@@ -20,7 +20,7 @@ function create(text) {
 
   cache.spinner = ora({
     text,
-    color: 'magenta',
+    color: 'red',
   }).start();
 }
 
@@ -32,12 +32,17 @@ function clear(message, isError) {
 
   const { spinner } = cache;
   if (spinner) {
-    (isError ? spinner.fail() : spinner.succeed());
+    if (isError) {
+      spinner.fail()
+     } else {
+      // spinner.stopAndPersist({symbol: '\xE2\x9C\x94'}); 
+      spinner.succeed(); 
+    };
     delete cache.spinner;
     // console.log('');
   }
 
-  const prefix = isError ? chalk.red('Error!') : chalk.green('Done!');
+  // const prefix = isError ? chalk.red('Error!') : chalk.green('Done!');
   // console.log(`${prefix} ${message}`);
 }
 

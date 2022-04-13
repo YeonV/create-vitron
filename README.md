@@ -29,7 +29,9 @@ yarn create vitron
 ```
 
 
-<img width="450" src="https://user-images.githubusercontent.com/28861537/162921510-de802ea5-0d0d-4f1a-91a0-64a7c6a278a8.png" alt="logo" style="max-width: 400px" />
+<img width="450" src="https://user-images.githubusercontent.com/28861537/163223391-9e0cc048-030c-43a6-b6c3-a4dab46acc0a.png" alt="logo" style="max-width: 400px" />
+
+<img width="450" src="https://user-images.githubusercontent.com/28861537/163223274-d89c1b6f-185d-41a4-937f-2c378ad0afd0.png" alt="logo" style="max-width: 400px" />
 
 ---
 
