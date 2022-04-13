@@ -47,7 +47,7 @@ function showDocs(projectName, ptitlebar, ptray, picon, installNodeModules ) {
   
     {bold.yellow cd ${name}}
     ${!installNodeModules ? chalk`{bold.yellow yarn
-    yarn dev}` : ''}}`);  
+    yarn dev}` : chalk`{bold.yellow yarn dev}`}}`);  
   }
 
   function replaceStrings(name, titlebar, tray) {
@@ -158,22 +158,6 @@ function gitClone(repo, projectName, branch) {
     });
 }
 
-function installModules(name, cmd) {
-  return new Promise((resolve, reject) => {
-    cp.execSync(`cd ${path.join(cwd, name)} && ${cmd}`, {
-      stdio: 'ignore',
-    }).on('close', (code, signal) => {
-      if (code) {
-        reject(code);
-        return;
-      }
-      resolve(signal);
-    });
-    console.log("Hi")
-  });
-}
-
-
 async function pm() {
     const { promisify } = require('util');
     const { exec: defaultExec } = require('child_process');
@@ -220,4 +204,3 @@ module.exports.gitClone = gitClone;
 module.exports.pm = pm;
 module.exports.spaces = spaces;
 module.exports.sleep = sleep;
-module.exports.installModules = installModules;

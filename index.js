@@ -161,20 +161,12 @@ async function init() {
     if (installNodeModules.value) {
       const pm = await utils.pm()
       const cmd = pm === 'yarn' ? 'yarn' : 'npm install';
-      // await utils.installModules(projectName, cmd)     
-      
       
       spinner.create(chalk`{bold.yellow Installing Node Modules (grab a coffee)...}`);
-
-      // Makes Spinner stuck
-      cp.execSync(`cd ${path.join(cwd, projectName)} && ${cmd}`, {
-        stdio: 'ignore',
-      })
-
-      // Directly resolves
-      // cp.exec(`cd ${path.join(cwd, projectName)} && ${cmd}`, {
-      //   stdio: 'ignore',
-      // })
+      
+      const util = require('util');
+      const exec = util.promisify(cp.exec);
+      await exec(`cd ${path.join(cwd, projectName)} && ${cmd}`) 
       
       spinner.clear();
     }    
@@ -182,37 +174,7 @@ async function init() {
     {green DONE!}
     `)
     await utils.sleep(2000);
-    utils.showDocs(projectName,titlebar,tray, img2ico.value, installNodeModules.value)
-    if (installNodeModules.value) {
-      const start = await prompts([
-        {
-          type: 'select',
-          name: 'variant',
-          message: chalk`{bold.yellow 
-    Want to start?}`,
-          choices: [
-            { title: 'start electron-app', description: 'yarn dev', value: 'dev' },
-            { title: 'start react-app in browser', description: 'yarn start', value: 'start' },
-            { title: 'exit', description: '', value: 'exit' },
-          ],
-        },
-      ]);
-      console.log(start)
-      if (!start.variant) return;
-      if (start.variant !== "exit") {
-        const cmd = pm === 'yarn' ? `yarn ${start.variant}` : `npm run ${start.variant}`;
-        cp.execSync(`cd ${path.join(cwd, projectName)} && ${cmd}`, {
-          stdio: 'inherit',
-        }); 
-      }
-      if (start.variant === "exit") {
-        console.log(chalk`{grey To get started run:
-  
-    {bold.yellow cd ${projectName}}
-    {bold.yellow yarn dev}}`)
-      }
-      
-    }
+    utils.showDocs(projectName,titlebar,tray, img2ico.value, installNodeModules.value)     
   } catch (error) {
     spinner.fail(error);
     process.exit(error);
