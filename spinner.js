@@ -34,11 +34,11 @@ function clear(message, isError) {
   if (spinner) {
     (isError ? spinner.fail() : spinner.succeed());
     delete cache.spinner;
-    console.log('');
+    // console.log('');
   }
 
   const prefix = isError ? chalk.red('Error!') : chalk.green('Done!');
-  console.log(`${prefix} ${message}`);
+  // console.log(`${prefix} ${message}`);
 }
 
 function fail(message) {
