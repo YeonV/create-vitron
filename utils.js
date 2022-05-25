@@ -20,11 +20,13 @@ function showHelp() {
     `);
 }
 
-function showDocs(projectName, ptitlebar, ptray, picon, installNodeModules ) {  
+function showDocs(projectName, ptitlebar, ptray, ptours, pprimary, picon, installNodeModules ) {  
     const name = projectName || 'Vitron'
     const titlebar = ptitlebar === true ? 'custom' : 'default'
     const icon = picon === true ? 'custom' : 'default'
-    const tray = ptray === true ? 'yes' : 'no'  
+    const tray = ptray === true ? 'yes' : 'no'
+    const tours = ptours ? 'yes' : 'no'
+    const primary = pprimary === '' ? 'default' : pprimary
     console.clear();
     console.log(chalk`{grey
     ┌───────────────────────────────────────┐
@@ -35,6 +37,8 @@ function showDocs(projectName, ptitlebar, ptray, picon, installNodeModules ) {
     |  Tray:      {bold.yellow ${tray}}${spaces(26, tray)}|
     |  Icon:      {bold.yellow ${icon}}${spaces(26, icon)}|
     |  Titlebar:  {bold.yellow ${titlebar}}${spaces(26, titlebar)}|
+    |  Tours:     {bold.yellow ${tours}}${spaces(26, tours)}|
+    |  Color:     {bold.yellow ${primary}}${spaces(26, primary)}|
     ├─────────┬──────────────┬──────────────┤
     │         │     APP      │     WEB      │
     ├─────────┼──────────────┼──────────────┤
@@ -50,7 +54,7 @@ function showDocs(projectName, ptitlebar, ptray, picon, installNodeModules ) {
     yarn dev}` : chalk`{bold.yellow yarn dev}`}}`);  
   }
 
-  function replaceStrings(name, titlebar, tray) {
+  function replaceStrings(name, titlebar, tray, tours, primary) {
     return new Promise((resolve, reject) => {
       const options = [
         {
@@ -96,6 +100,20 @@ function showDocs(projectName, ptitlebar, ptray, picon, installNodeModules ) {
           to: `"VITRON_TRAY": false`,
         })
       }
+      if (!tours) {
+        options.push({
+          files: `${name}/package.json`,
+          from: /"VITRON_TOURS": true/g,
+          to: `"VITRON_TOURS": false`,
+        })
+      }
+      if (primary !== '') {
+        options.push({
+          files: `${name}/package.json`,
+          from: /"VITRON_PRIMARY_COLOR": "default"/g,
+          to: `"VITRON_PRIMARY_COLOR": "${primary}"`,
+        })
+      }
       for (let index = 0; index < options.length; index++) {
         try {
           const results = replace.sync(options[index]);
@@ -125,6 +143,7 @@ function handleIcon(name) {
               fs.writeFileSync(`${name}/resources/icon.icns`, output);
           }
           resize(path.join(name, 'icon.png'),`${name}/resources/icon.png`);
+          resize(path.join(name, 'icon.png'),`${name}/packages/renderer/src/assets/icon.png`);
           fs.rmSync(path.join(cwd, name, 'icon.png'), {recursive: true,force: true,});
           resolve()
         })

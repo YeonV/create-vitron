@@ -66,12 +66,28 @@ async function init() {
       ],
       initial: 0,
     },
+    {
+      type: 'select',
+      name: 'tours',
+      message: chalk`{bold.yellow Add in-app tours:}`,
+      choices: [
+        { title: 'Yes', description: 'Yes', value: true },
+        { title: 'No', description: 'No', value: false },
+      ],
+    },
+    {
+      type: 'text',
+      name: 'primary',
+      message: chalk`{bold.yellow Primary color (empty for default):}`,
+    },
   ]);
 
   if (!project.projectname) return;
   const projectName = project.projectname;
   const titlebar = project.titlebar;
   const tray = project.tray;
+  const tours = project.tours;
+  const primary = project.primary;
   
   const template = await prompts([
     {
@@ -130,7 +146,7 @@ async function init() {
     });
     spinner.clear();
     spinner.create(chalk`{bold.yellow Configuring App...}`);
-    const configured = await utils.replaceStrings(projectName, titlebar, tray);
+    const configured = await utils.replaceStrings(projectName, titlebar, tray, tours, primary);
     if (configured) {
       spinner.clear();
     }    
@@ -174,7 +190,7 @@ async function init() {
     {green DONE!}
     `)
     await utils.sleep(2000);
-    utils.showDocs(projectName,titlebar,tray, img2ico.value, installNodeModules.value)     
+    utils.showDocs(projectName,titlebar,tray, tours, primary, img2ico.value, installNodeModules.value)     
   } catch (error) {
     spinner.fail(error);
     process.exit(error);
